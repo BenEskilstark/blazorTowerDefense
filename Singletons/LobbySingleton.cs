@@ -1,8 +1,9 @@
 namespace blazorTowerDefense.Singletons;
 
 using blazorTowerDefense.Models;
+using blazorTowerDefense.DataStructures;
 
-public class GameServerSingleton
+public class LobbySingleton()
 {
     public List<Player> Players { get; private set; } = [];
     public Player? GetPlayer(int playerID)

@@ -5,18 +5,18 @@ using blazorTowerDefense.Models;
 using blazorTowerDefense.Singletons;
 
 
-public class GameClientService : IDisposable
+public class LobbyService : IDisposable
 {
-    public GameServerSingleton GameServer { get; }
-    public Player ClientPlayer { get; }
+    public LobbySingleton LobbyServer { get; }
+    public Player Player { get; }
 
     public Game? JoinedGame { get; set; }
 
-    public GameClientService(GameServerSingleton gameServer)
+    public LobbyService(LobbySingleton lobbyServer)
     {
-        GameServer = gameServer;
-        ClientPlayer = gameServer.JoinServer();
-        GameServer.NotifyGameOver += (int gameID) =>
+        LobbyServer = lobbyServer;
+        Player = lobbyServer.JoinServer();
+        LobbyServer.NotifyGameOver += (int gameID) =>
         {
             if (JoinedGame?.GameID == gameID)
             {
@@ -29,9 +29,9 @@ public class GameClientService : IDisposable
     {
         if (JoinedGame != null)
         {
-            GameServer.LeaveGame(ClientPlayer, JoinedGame.GameID);
+            LobbyServer.LeaveGame(Player, JoinedGame.GameID);
         }
-        GameServer.LeaveServer(ClientPlayer);
+        LobbyServer.LeaveServer(Player);
         JoinedGame = null;
     }
 

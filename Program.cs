@@ -15,8 +15,8 @@ builder.Services.AddRazorComponents()
         });
 
 // custom services/singletons
-builder.Services.AddScoped<GameClientService>();
-builder.Services.AddSingleton<GameServerSingleton>();
+builder.Services.AddScoped<LobbyService>();
+builder.Services.AddSingleton<LobbySingleton>();
 
 // -------------------------------------------------------------------------
 var app = builder.Build();

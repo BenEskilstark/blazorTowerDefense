@@ -1,4 +1,4 @@
-using System.Xml.Linq;
+namespace blazorTowerDefense.DataStructures;
 
 using Coord = (int X, int Y);
 

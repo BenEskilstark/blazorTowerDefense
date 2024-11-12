@@ -1,3 +1,5 @@
+namespace blazorTowerDefense.DataStructures;
+
 using Coord = (int X, int Y);
 
 public class SparseGrid<T>
