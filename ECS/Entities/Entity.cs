@@ -13,11 +13,7 @@ public abstract class Entity(EntityContext entityContext)
 
     public override string ToString()
     {
-        string res =
-@$"ID: {EntityID}
-Name: {Name}
-Position: {Position}
-";
+        string res = $"#{EntityID}, Name: {Name}, At: {Position}";
         if (Fuel != null) res += $"Fuel: {Fuel}";
 
         return res;
