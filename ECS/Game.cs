@@ -22,12 +22,15 @@ public class Game(int gameID, Player host)
         new BurnSystem(),
     ];
     public int Tick { get; private set; } = 0;
-    private Timer UpdateInterval { get; set; }
+    private Timer? UpdateInterval { get; set; }
 
     public void Start()
     {
         IsStarted = true;
         Entities = new();
+
+        Entities.AddEntity(new Fire(Entities) { Fuel = 20 });
+
         Tick = 0;
         UpdateInterval = new((object? s) => Update(), null, 0, 500);
         Notify?.Invoke();
@@ -37,7 +40,7 @@ public class Game(int gameID, Player host)
     {
         Tick++;
         Console.WriteLine("Tick");
-        Entities.ForEach(e => Console.WriteLine(e));
+        Entities.ForEach(Console.WriteLine);
         Systems.ForEach(s => s.Update(Entities));
         Notify?.Invoke();
     }

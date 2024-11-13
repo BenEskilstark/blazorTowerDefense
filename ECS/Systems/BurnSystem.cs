@@ -1,7 +1,6 @@
 namespace blazorTowerDefense.ECS.Systems;
 
-using blazorTowerDefense.Models;
-using blazorTowerDefense.DataStructures;
+using blazorTowerDefense.ECS.Entities;
 
 public class BurnSystem() : System()
 {

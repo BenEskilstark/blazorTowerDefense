@@ -1,5 +1,7 @@
 namespace blazorTowerDefense.ECS.Entities;
 
+using blazorTowerDefense.DataStructures;
+
 using Coord = (int X, int Y);
 
 public class EntityContext()
