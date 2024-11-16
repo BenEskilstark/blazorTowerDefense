@@ -1,6 +1,7 @@
 ﻿@page "/game"
 
 @using blazorTowerDefense.Components;
+@using blazorTowerDefense.Components.Game;
 
 @inject LobbyService Lobby;
 @inject NavigationManager NavigationManager
@@ -10,11 +11,16 @@
 <GameComponent />
 
 @code {
-    protected override void OnInitialized() {
-        if (Lobby.JoinedGame == null) {
-            try { 
+    protected override void OnInitialized()
+    {
+        if (Lobby.JoinedGame == null)
+        {
+            try
+            {
                 NavigationManager.NavigateTo("/");
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 // do nothing. Exception thrown for no reason
             }
         }

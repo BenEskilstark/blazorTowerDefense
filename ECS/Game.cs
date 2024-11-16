@@ -17,7 +17,10 @@ public class Game(int gameID, Player host)
         return Players.FirstOrDefault(p => true)?.PlayerID == playerID;
     }
 
-    private EntityContext Entities { get; set; } = new();
+    public int Width { get; private set; } = 25;
+    public int Height { get; private set; } = 15;
+
+    public EntityContext Entities { get; set; } = new();
     private List<System> Systems { get; set; } = [
         new BurnSystem(),
     ];
@@ -29,7 +32,7 @@ public class Game(int gameID, Player host)
         IsStarted = true;
         Entities = new();
 
-        Entities.AddEntity(new Fire(Entities) { Fuel = 20 });
+        Entities.AddEntity(new Fire() { Fuel = 200, Position = (5, 8) });
 
         Tick = 0;
         UpdateInterval = new((object? s) => Update(), null, 0, 500);
@@ -39,8 +42,8 @@ public class Game(int gameID, Player host)
     public void Update()
     {
         Tick++;
-        Console.WriteLine("Tick");
-        Entities.ForEach(Console.WriteLine);
+        // Console.WriteLine("Tick");
+        // Entities.ForEach(Console.WriteLine);
         Systems.ForEach(s => s.Update(Entities));
         Notify?.Invoke();
     }

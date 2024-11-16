@@ -37,6 +37,7 @@ public class EntityContext()
 
     public void AddEntity(Entity entity)
     {
+        entity.EntityID = NextEntityID;
         Entities.Add(entity.EntityID, entity);
         World.Set(entity.Position, [.. World.At(entity.Position), entity]);
     }
