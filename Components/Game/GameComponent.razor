@@ -5,18 +5,20 @@
 @* <button class="btn btn-primary" @onclick="() => {}">Click me</button> *@
 
 <div class="game">
-    @for (int x = 0; x < Game?.Width; x++) {
-        @for (int y = 0; y < Game?.Height; y++) {
+    @* <img class="background-img" src="/img/forest.webp"> *@
+    @for (int x = 0; x < Game?.Width; x++)
+    {
+        @for (int y = 0; y < Game?.Height; y++)
+        {
             Coord pos = (x, y);
-            @if (Game?.Entities.World.At(pos)!.Count > 0) {
-                <div class="square"
-                    style="background-color: @Game.Entities.World.At(pos)![0].Color; width: @(100 / Game.Width)%;"
-                >@Game.Entities.World.At((x, y))![0].Fuel</div>
-            } else {
-                <div class="square"
-                    style="width: @(100 / Game.Width)%;"
-                    onclick="@(() => Click(pos))"
-                ></div>
+            @if (Game?.Entities.World.At(pos)!.Count > 0)
+            {
+                <div class="square" style="background-color: @Game.Entities.World.At(pos)![0].Color; width: @(100 / Game.Width)%;">
+                    @Game.Entities.World.At((x, y))![0].Fuel</div>
+            }
+            else
+            {
+                <div class="square" style="width: @(100 / Game.Width)%;" onclick="@(() => Click(pos))"></div>
             }
         }
     }
@@ -25,18 +27,25 @@
 <style>
     .game {
         width: 100%;
-        height: 700px;
-        background-color: blanchedalmond;
+        height: 832px;
         display: flex;
         flex-direction: row;
-        flex-wrap:wrap;
+        flex-wrap: wrap;
+        position: relative;
+        background-image: url("/img/forest.webp");
+    }
+
+    .background-img {
+        top: 0;
+        left: 0;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
     }
 
     .square {
-        @* background-color: black; *@
-        border: 1px solid black;
         box-sizing: border-box;
-        height: 46.7px;
+        height: 17px;
     }
 </style>
 
@@ -50,7 +59,8 @@
         Game.Notify += () => InvokeAsync(StateHasChanged);
     }
 
-    public void Click(Coord pos) {
+    public void Click(Coord pos)
+    {
         Game.Entities.AddEntity(new Fire() { Fuel = 20, Position = pos });
     }
 }
