@@ -22,7 +22,8 @@ public class Game(int gameID, Player host)
 
     public EntityContext Entities { get; set; } = new();
     private List<System> Systems { get; set; } = [
-        new BurnSystem(),
+        new FuelSystem(),
+        new FireSystem(),
     ];
     public int Tick { get; private set; } = 0;
     private Timer? UpdateInterval { get; set; }
@@ -45,6 +46,7 @@ public class Game(int gameID, Player host)
         // Console.WriteLine("Tick");
         // Entities.ForEach(Console.WriteLine);
         Systems.ForEach(s => s.Update(Entities));
+        Entities.OnAfterUpdate();
         Notify?.Invoke();
     }
 

@@ -2,7 +2,7 @@ namespace blazorTowerDefense.ECS.Systems;
 
 using blazorTowerDefense.ECS.Entities;
 
-public class BurnSystem() : System()
+public class FuelSystem() : System()
 {
     public override bool IsRelevant(Entity entity)
     {

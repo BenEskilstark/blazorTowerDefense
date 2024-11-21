@@ -133,7 +133,7 @@ public class SparseGrid<T>
                 (X: coord.X - 1, Y: coord.Y + 1)
             ]);
         }
-        return neighbors.Where(c => !Equals(At(c), Default)).ToList();
+        return neighbors;
     }
 
     public Grid<T?> ToGrid(bool forceZeroBounds = true)

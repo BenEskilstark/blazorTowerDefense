@@ -9,7 +9,8 @@ public abstract class Entity()
     public Coord Position { get; set; }
     public string Color { get; set; } = "orange";
 
-    public abstract int? Fuel { get; set; }
+    public virtual int? Fuel { get; set; }
+    public virtual int? Intensity { get; set; }
 
 
     public override string ToString()

@@ -15,6 +15,11 @@ public class EntityContext()
     public SparseGrid<List<Entity>> World { get; set; } = new([]);
     public Dictionary<int, Entity> Entities { get; set; } = [];
 
+    private List<Entity> ToAdd { get; set; } = [];
+    private List<Entity> ToRemove { get; set; } = [];
+
+    public Random Rand { get; set; } = new();
+
 
     public void ForEach(Action<Entity> f)
     {
@@ -22,6 +27,7 @@ public class EntityContext()
         {
             f(entity);
         }
+        OnAfterUpdate();
     }
 
 
@@ -33,21 +39,35 @@ public class EntityContext()
         return neighbors;
     }
 
+    public void OnAfterUpdate()
+    {
+        foreach (var entity in ToAdd)
+        {
+            entity.EntityID = NextEntityID;
+            Entities.Add(entity.EntityID, entity);
+            World.Set(entity.Position, [.. World.At(entity.Position), entity]);
+        }
+        foreach (var entity in ToRemove)
+        {
+            Entities.Remove(entity.EntityID);
+            World.Set(
+                entity.Position,
+                [.. World.At(entity.Position)!.Where(e => e.EntityID != entity.EntityID)]
+            );
+        }
+        ToAdd = [];
+        ToRemove = [];
+    }
+
 
 
     public void AddEntity(Entity entity)
     {
-        entity.EntityID = NextEntityID;
-        Entities.Add(entity.EntityID, entity);
-        World.Set(entity.Position, [.. World.At(entity.Position), entity]);
+        ToAdd.Add(entity);
     }
     public void RemoveEntity(Entity entity)
     {
-        Entities.Remove(entity.EntityID);
-        World.Set(
-            entity.Position,
-            [.. World.At(entity.Position)!.Where(e => e.EntityID != entity.EntityID)]
-        );
+        ToRemove.Add(entity);
     }
 
 }
